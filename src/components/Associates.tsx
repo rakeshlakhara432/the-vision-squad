@@ -84,13 +84,12 @@ export default function Associates() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative rounded-[2rem] overflow-hidden shadow-2xl group"
+          className="relative rounded-[2rem] overflow-hidden shadow-2xl group bg-white border border-gray-100"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/20 to-transparent pointer-events-none z-10" />
           <img 
             src="bank.png" 
             alt="Bank Associates Landscape" 
-            className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-1000"
+            className="w-full h-auto object-contain bg-white hover:scale-[1.01] transition-transform duration-1000"
           />
           <div className="absolute bottom-8 left-8 z-20">
             <div className="bg-white/90 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-xl border border-white/50">
