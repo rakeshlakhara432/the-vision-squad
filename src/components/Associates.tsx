@@ -84,19 +84,13 @@ export default function Associates() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative rounded-[2rem] overflow-hidden shadow-2xl group bg-white border border-gray-100"
+          className="bg-white rounded-3xl shadow-xl border border-gray-100 p-2 sm:p-4"
         >
           <img 
             src="bank.png" 
             alt="Bank Associates Landscape" 
-            className="w-full h-auto object-contain bg-white hover:scale-[1.01] transition-transform duration-1000"
+            className="w-full h-auto block rounded-2xl"
           />
-          <div className="absolute bottom-8 left-8 z-20">
-            <div className="bg-white/90 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-xl border border-white/50">
-              <span className="text-brand-dark font-black italic block">Certified Partners</span>
-              <span className="text-gray-500 text-xs font-bold uppercase tracking-widest">Network coverage across India</span>
-            </div>
-          </div>
         </motion.div>
       </div>
     </section>
