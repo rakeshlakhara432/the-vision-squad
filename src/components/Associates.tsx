@@ -88,7 +88,7 @@ export default function Associates() {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/20 to-transparent pointer-events-none z-10" />
           <img 
-            src="/bank.png" 
+            src="bank.png" 
             alt="Bank Associates Landscape" 
             className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-1000"
           />

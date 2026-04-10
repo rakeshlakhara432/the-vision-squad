@@ -4,17 +4,17 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const slides = [
   {
-    image: '/slide1.png',
+    image: 'slide1.png',
     title: 'Expert Financial Solutions',
     description: 'Empowering your business with strategic financial guidance and audit services.'
   },
   {
-    image: '/slide2.png',
+    image: 'slide2.png',
     title: 'Professional Team Support',
     description: 'Dedicated professionals working together to manage your taxes and finances efficiently.'
   },
   {
-    image: '/slide3.png',
+    image: 'slide3.png',
     title: 'Modern Fintech Excellence',
     description: 'Leveraging cutting-edge technology for faster and more accurate financial processing.'
   }
