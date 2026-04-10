@@ -1,0 +1,80 @@
+{
+  "entities": {
+    "Service": {
+      "title": "Service",
+      "description": "Financial and accounting services offered by the firm",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "icon": { "type": "string" },
+        "content": { "type": "string" },
+        "benefits": { "type": "array", "items": { "type": "string" } },
+        "process": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["title", "description", "icon"]
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "Contact form submissions",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "message": { "type": "string" },
+        "service": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["new", "contacted", "closed"] }
+      },
+      "required": ["name", "email", "phone", "message"]
+    },
+    "Blog": {
+      "title": "Blog",
+      "description": "Financial insights and updates",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "content": { "type": "string" },
+        "author": { "type": "string" },
+        "publishedAt": { "type": "string", "format": "date-time" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "excerpt": { "type": "string" }
+      },
+      "required": ["title", "slug", "content"]
+    },
+    "UserDocument": {
+      "title": "UserDocument",
+      "description": "Documents uploaded by clients",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "fileName": { "type": "string" },
+        "fileUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "approved"] },
+        "uploadedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "fileName", "fileUrl"]
+    }
+  },
+  "firestore": {
+    "/services/{serviceId}": {
+      "schema": "Service",
+      "description": "Collection of services"
+    },
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Collection of leads"
+    },
+    "/blogs/{blogId}": {
+      "schema": "Blog",
+      "description": "Collection of blog posts"
+    },
+    "/users/{userId}/documents/{docId}": {
+      "schema": "UserDocument",
+      "description": "User-specific documents"
+    }
+  }
+}

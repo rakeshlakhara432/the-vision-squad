@@ -1,0 +1,85 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: services
+    // Fields: title, description, icon, content, benefits, process
+    //
+    // Collection: leads
+    // Fields: name, email, phone, message, service, createdAt, status
+    //
+    // Collection: blogs
+    // Fields: title, slug, content, author, publishedAt, tags, excerpt
+    //
+    // Collection: users/{userId}/documents
+    // Fields: userId, fileName, fileUrl, status, uploadedAt
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+         (request.auth.token.email == "ramramsa20052@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    function isValidString(val, min, max) {
+      return val is string && val.size() >= min && val.size() <= max;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    // Services: Publicly readable, admin writable
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Leads: Anyone can create, only admin can read/update
+    match /leads/{leadId} {
+      allow create: if isValidString(request.resource.data.name, 2, 100) &&
+                      isValidEmail(request.resource.data.email) &&
+                      isValidString(request.resource.data.phone, 10, 15);
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Blogs: Publicly readable, admin writable
+    match /blogs/{blogId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // User Documents: Owner and Admin can access
+    match /users/{userId}/documents/{docId} {
+      allow read, write: if isOwner(userId) || isAdmin();
+    }
+
+    // User Profile
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isOwner(userId) && (request.resource.data.role == resource.data.role || isAdmin());
+    }
+  }
+}
