@@ -19,7 +19,6 @@ import Inquiry from './pages/Inquiry';
 // Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import AIChat from './components/AIChat';
 
 export default function App() {
   const [user, setUser] = useState<any>(null);
@@ -71,7 +70,6 @@ export default function App() {
           </AnimatePresence>
         </main>
         <Footer />
-        <AIChat />
         
         {/* WhatsApp Float */}
         <a 
